@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { FC, useState } from 'react';
+import axios from '../Api';
 
-const Cadastro: React.FC = () => {
+const Cadastro: FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleCadastro = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/users/cadastro', { username, password, confirmPassword });
+      const response = await axios.post('/users/cadastro', { username, password, confirmPassword });
       console.log('Cadastro realizado com sucesso!', response.data);
       // redirecionamento p/ página de login
     } catch (error) {
