@@ -1,9 +1,11 @@
 import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../Api";
 
 const Login: FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -13,7 +15,7 @@ const Login: FC = () => {
       });
 
       console.log("Login realizado com sucesso!", response.data);
-      //Redirecionamento para a página Home
+      navigate("/home");
     } catch (error) {
       console.error("Login falhou!", error);
     }
