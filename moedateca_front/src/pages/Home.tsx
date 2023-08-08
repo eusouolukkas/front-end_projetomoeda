@@ -1,16 +1,36 @@
-import { FC, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../Api";
+import { useNavigate } from "react-router-dom";
 
-const Home: FC = () => {
+const Home: React.FC = () => {
   const [country, setCountry] = useState("");
   const [value, setValue] = useState("");
   const [year, setYear] = useState(0);
   const [information, setInformation] = useState("");
   const [type, setType] = useState("");
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+
+    if(!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    //remove token da sessionStorage
+    sessionStorage.removeItem('token');
+
+    //redireciona para a página de login
+    navigate('/login');
+  }
+
   const handleCadastroMoeda = async () => {
     try {
-      const response = await axios.post("/coins", {
+      const response = await axios.post("/coins/", {
         country,
         value,
         year,
@@ -57,6 +77,7 @@ const Home: FC = () => {
         onChange={(e) => setType(e.target.value)}
       />
       <button onClick={handleCadastroMoeda}>Cadastrar</button>
+      <button onClick={handleLogout}>Sair</button>
     </div>
   );
 };

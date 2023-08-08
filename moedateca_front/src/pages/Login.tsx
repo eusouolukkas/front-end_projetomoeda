@@ -1,44 +1,18 @@
-import { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "../Api";
+import React from 'react';
+import LoginForm from '../components/LoginForm';
 
-const Login: FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post("/users/login", {
-        username,
-        password,
-      });
-
-      console.log("Login realizado com sucesso!", response.data);
-      navigate("/home");
-    } catch (error) {
-      console.error("Login falhou!", error);
-    }
+const LoginPage: React.FC = () => {
+  const handleLogin = (token: string) => {
+    // Armazene o token em algum lugar (por exemplo, no estado global)
+    console.log('Token:', token);
   };
 
   return (
     <div>
-      <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
+      <h1>Seja Bem-Vindo(a)</h1>
+      <LoginForm onLogin={handleLogin} />
     </div>
   );
 };
 
-export default Login;
+export default LoginPage;
