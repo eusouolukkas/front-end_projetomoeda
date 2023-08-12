@@ -14,6 +14,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
+    axios.defaults.headers.Authorization = `Bearer ${token}`;
 
     if(!token) {
       navigate("/login");
