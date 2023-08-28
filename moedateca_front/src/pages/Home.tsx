@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "../Api";
 import { useNavigate } from "react-router-dom";
+import CoinList from "../components/CoinList";
+import CoinComponent from "../components/EditCoinForm";
 
 const Home: React.FC = () => {
   const [country, setCountry] = useState("");
@@ -45,41 +47,47 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Cadastre uma moeda</h2>
-      <input
-        type="text"
-        placeholder="País"
-        value={country}
-        onChange={(e) => setCountry(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Valor"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Ano"
-        value={year}
-        onChange={(e) => setYear(parseInt(e.target.value))}
-      />
-      <input
-        type="text"
-        placeholder="Informações"
-        value={information}
-        onChange={(e) => setInformation(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Tipo"
-        value={type}
-        onChange={(e) => setType(e.target.value)}
-      />
-      <button onClick={handleCadastroMoeda}>Cadastrar</button>
-      <button onClick={handleLogout}>Sair</button>
+    <>
+      <div>
+        <h2>Cadastre uma moeda</h2>
+        <input
+          type="text"
+          placeholder="País"
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Valor"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Ano"
+          value={year}
+          onChange={(e) => setYear(parseInt(e.target.value))}
+        />
+        <input
+          type="text"
+          placeholder="Informações"
+          value={information}
+          onChange={(e) => setInformation(e.target.value)}
+        />
+        <label>Tipo:</label>
+        <select value={type} onChange={(e) => setType(e.target.value)}>
+          <option value="Nacional">Nacional</option>
+          <option value="Estrangeira">Estrangeira</option>
+        </select>
+        <button onClick={handleCadastroMoeda}>Cadastrar</button>
+        <button onClick={handleLogout}>Sair</button>
+      </div>
+      <div className="app">
+      <h2>Moedas Cadastradas</h2>
+      <CoinList />
+      <CoinComponent />
     </div>
+  </>
   );
 };
 
